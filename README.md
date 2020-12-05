@@ -1,1 +1,1 @@
-# -SosyalMedya-Flutter-Giri-Sayfas-
+# -SosyalMedya-Flutter-Giris-Sayfasi-
