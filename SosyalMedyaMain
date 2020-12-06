@@ -1,0 +1,243 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:sociworld/gonderikarti.dart';
+import 'package:sociworld/profilsayfasi.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Projem',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
+      home: Anasayfa(),
+    );
+  }
+}
+
+class Anasayfa extends StatefulWidget {
+  @override
+  _AnasayfaState createState() => _AnasayfaState();
+}
+
+class _AnasayfaState extends State<Anasayfa> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[100],
+      appBar: AppBar(
+        backgroundColor: Colors.grey[100],
+        elevation: 0.0, //gölge efekti
+        leading: IconButton(
+            icon: Icon(
+              Icons.menu,
+              color: Colors.grey,
+              size: 32.0,
+            ),
+            onPressed: () {
+              //seçim yapılması için açılan pencerelere modalbottomsheet denir
+            } //butona bastığımızda bu fonksiyon çalışıcak
+            ),
+        title: Text(
+          "SociaWorld",
+          style: TextStyle(
+            fontSize: 20.0,
+            color: Colors.grey,
+          ),
+        ),
+        centerTitle: true, //başlığı ortaya aldık
+        actions: <Widget>[
+          IconButton(
+              //appbardaki en sağ bölmeye biz actions diyoruz
+              icon: Icon(
+                Icons.notifications,
+                color: Colors.purple[300],
+                size: 32.0,
+              ),
+              onPressed: () {showModalBottomSheet(context:context, builder:(BuildContext context){
+                return Column(
+                  children: <Widget>[
+                    duyuru("kamil seni takip etti","3 dk önce"),
+                    duyuru("seda gönderine yorum yaptı","1 gün önce"),
+                    duyuru("cüneyt mesaj gönderdi","3 saat önce"),
+                  ],
+                );
+              } );})
+        ],
+      ),
+      body: ListView(
+        //alt alta ekrana koyacağımız elamanlar ve kaydırma veya aşağı doğru sürükleme yapacaksak column yerine listview kullanıcaksın
+        children: <Widget>[
+          Container(
+            height: 100.0,
+            decoration: BoxDecoration(color: Colors.grey[100], boxShadow: [
+              //gölge vermemizi sağlıyor
+              BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(0.0, 3.0),
+                  blurRadius:
+                      5.0 //gölgenin ne kadar bulanıklaştıracağını belirler
+                  ),
+            ]),
+            child: ListView(
+              scrollDirection: Axis
+                  .horizontal, //yatay düzlemde kaydırmak demek ve yan yana eklenecek
+              children: <Widget>[
+                profilKartiOlustur(
+                  "Selçuk",
+                  "https://cdn.pixabay.com/photo/2016/03/09/15/10/man-1246508_1280.jpg",
+                  "Selçuk Mert",
+                  "https://cdn.pixabay.com/photo/2013/11/28/10/36/road-220058_1280.jpg"
+                ), //kodları tekrar tekrar yazmak yerine aşağıda class oluşturup çağırdık
+                profilKartiOlustur(
+                  "Hakan",
+                  "https://cdn.pixabay.com/photo/2016/11/21/14/53/adult-1845814_1280.jpg",
+                  "Tom Watson ",
+                  "https://cdn.pixabay.com/photo/2015/06/19/21/24/the-road-815297_1280.jpg"
+                ),
+                profilKartiOlustur(
+                  "Zeynep",
+                  "https://cdn.pixabay.com/photo/2015/03/03/08/55/portrait-657116_960_720.jpg",
+                  "Jessica Lopez",
+                  "https://cdn.pixabay.com/photo/2016/09/18/14/21/swimmer-1678307_1280.jpg"
+                ),
+                profilKartiOlustur(
+                  "Derya",
+                  "https://cdn.pixabay.com/photo/2015/03/26/09/42/woman-690118_1280.jpg",
+                  "Belma Zorlu",
+                  "https://cdn.pixabay.com/photo/2014/09/07/22/17/forest-438432_1280.jpg"
+                ),
+                profilKartiOlustur(
+                  "Seher",
+                  "https://cdn.pixabay.com/photo/2014/10/06/17/30/child-476507_1280.jpg",
+                  "Yıldız Mars",
+                  "https://cdn.pixabay.com/photo/2012/08/06/00/53/bridge-53769_1280.jpg"
+                ),
+                profilKartiOlustur(
+                  "Mehmet",
+                  "https://cdn.pixabay.com/photo/2014/04/12/14/59/portrait-322470_960_720.jpg",
+                  "Nadir Çakıl",
+                  "https://cdn.pixabay.com/photo/2015/07/31/06/50/forest-868715_1280.jpg"
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          GonderiKarti(
+            profilResimLinki:
+                "https://cdn.pixabay.com/photo/2015/09/02/12/58/woman-918788_1280.jpg",
+            gonderiResimLinki:
+                "https://cdn.pixabay.com/photo/2015/09/02/12/58/woman-918788_1280.jpg",
+            isimSoyad: "hakan yaldız",
+            gecenSure: "1 sene önce",
+            aciklama: "Geçen yaz çekildim",
+          ),
+          GonderiKarti(
+            profilResimLinki:
+                "https://cdn.pixabay.com/photo/2016/03/12/23/18/man-1253004_1280.jpg",
+            gonderiResimLinki:
+                "https://cdn.pixabay.com/photo/2016/03/12/23/18/man-1253004_1280.jpg",
+            isimSoyad: "Selda Mert",
+            gecenSure: "2 sene önce",
+            aciklama: "Geçen kış çekildim",
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(onPressed:null,backgroundColor: Colors.purple[300],child: Icon(Icons.add_a_photo,color: Colors.white,)),
+    );
+  }
+
+  Padding duyuru(String mesaj,String gecensure) {
+    return Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(mesaj,style: TextStyle(
+                          fontSize: 15.0,
+                        ),),
+                        Text(gecensure),
+                      ],
+                    ),
+                  );
+  }
+
+  Widget profilKartiOlustur(String kullaniciAdi, String resimLinki,
+      String isimSoyad, String kapakResimLinki) {
+    return Material(
+      child: InkWell(
+        onTap: ()async {
+        Future<String> donenVeri= Navigator.push(context,
+              CupertinoPageRoute(builder: (BuildContext context) {
+            return ProfilSayfasi(
+              profilResimLinki: resimLinki,
+              kullaniciiAdi: kullaniciAdi,
+              isimSoyad: isimSoyad,
+              kapakResimLinki: kapakResimLinki,
+            );
+          })); 
+          print(await donenVeri);// MaterialPAgeRoute  parametresi hangi sayfaya gideceğimizi ve sayfa animasyonunu belirlememizi sağlar ama
+        }, //tıkladığımızda sayfa değişicek olan komutu yazıcaz
+        child: Padding(
+          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+          child: Column(
+            children: <Widget>[
+              Stack(
+                //widgetleri üst üste koymamızı sağlar(yeşil durum çubuğunu oluşturma için kullandık)
+                alignment: AlignmentDirectional.topEnd,
+
+                children: <Widget>[
+                  Hero(
+                    tag: kullaniciAdi,
+                                      child: Container(
+                      width: 70.0,
+                      height: 70.0,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(width: 2.0, color: Colors.grey),
+                          borderRadius: BorderRadius.circular(35.0),
+                          image: DecorationImage(
+                              image: NetworkImage(resimLinki),
+                              fit: BoxFit
+                                  .cover //resim kutunun içerisini boşluk kalmadan doldurur
+
+                              )),
+                    ),
+                  ),
+                  Container(
+                    //yeşil durum çubuğu oluşturduk
+                    width: 20.0,
+                    height: 20.0,
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(25.0),
+                        border: Border.all(
+                            width: 2.0,
+                            color: Colors.white) //kenarlara yuvarlaklaştırdık
+                        ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 4.0,
+              ), //isimle foto arasını biraz açmış olduk
+              Text(
+                kullaniciAdi,
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
